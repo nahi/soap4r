@@ -91,11 +91,15 @@ module Mapping
 
   def self.fault2exception(fault, registry = nil)
     registry ||= Mapping::DefaultRegistry
-    detail = if fault.detail
-        soap2obj(fault.detail, registry) || ""
-      else
-        ""
+    detail = ""
+    if fault.detail
+      begin
+        fault.detail.type ||= XSD::QName::EMPTY
+        detail = soap2obj(fault.detail, registry) || ""
+      rescue MappingError
+        detail = fault.detail
       end
+    end
     if detail.is_a?(Mapping::SOAPException)
       begin
         e = detail.to_e

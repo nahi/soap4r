@@ -184,7 +184,7 @@ private
   end
 
   def decode_str(str)
-    @charset ? XSD::Charset.encoding_from_xml(str, @charset) : str
+    @charset ? XSD::Charset.encoding_to_internal(str, @charset) : str
   end
 end
 

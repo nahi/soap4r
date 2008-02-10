@@ -96,11 +96,11 @@ public
     charset_label(@internal_encoding)
   end
 
-  def Charset.encoding_to_xml(str, charset)
+  def Charset.encoding_from_internal(str, charset)
     encoding_conv(str, @internal_encoding, charset_str(charset))
   end
 
-  def Charset.encoding_from_xml(str, charset)
+  def Charset.encoding_to_internal(str, charset)
     encoding_conv(str, charset_str(charset), @internal_encoding)
   end
 

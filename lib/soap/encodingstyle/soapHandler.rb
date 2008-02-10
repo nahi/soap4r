@@ -50,7 +50,7 @@ class SOAPHandler < Handler
     when XSD::XSDString
       generator.encode_tag(name, attrs)
       generator.encode_string(@charset ?
-	XSD::Charset.encoding_to_xml(data.to_s, @charset) : data.to_s)
+	XSD::Charset.encoding_from_internal(data.to_s, @charset) : data.to_s)
     when XSD::XSDAnySimpleType
       generator.encode_tag(name, attrs)
       generator.encode_string(data.to_s)
@@ -472,7 +472,7 @@ private
       node.set_encoded(textbufstr)
     when XSD::XSDString
       if @charset
-	textbufstr = XSD::Charset.encoding_from_xml(textbufstr, @charset)
+	textbufstr = XSD::Charset.encoding_to_internal(textbufstr, @charset)
       end
       if node.definedtype
         node.definedtype.check_lexical_format(textbufstr)

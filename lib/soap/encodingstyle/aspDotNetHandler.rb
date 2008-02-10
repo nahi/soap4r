@@ -44,7 +44,7 @@ class ASPDotNetHandler < Handler
     when XSD::XSDString
       generator.encode_tag(name, attrs)
       generator.encode_string(@charset ?
-        XSD::Charset.encoding_to_xml(data.to_s, @charset) : data.to_s)
+        XSD::Charset.encoding_from_internal(data.to_s, @charset) : data.to_s)
     when XSD::XSDAnySimpleType
       generator.encode_tag(name, attrs)
       generator.encode_string(data.to_s)
@@ -190,7 +190,7 @@ private
   def decode_textbuf(node)
     if node.is_a?(XSD::XSDString)
       if @charset
-	node.set(XSD::Charset.encoding_from_xml(@textbuf, @charset))
+	node.set(XSD::Charset.encoding_to_internal(@textbuf, @charset))
       else
 	node.set(@textbuf)
       end

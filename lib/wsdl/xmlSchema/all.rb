@@ -17,6 +17,39 @@ class All < Content
   def initialize
     super()
   end
+  attr_reader :any
+
+  def initialize
+    super()
+    @any = nil
+  end
+
+  def have_any?
+    !!@any
+  end
+
+  def parse_element(element)
+    case element
+    when SequenceName
+      o = Sequence.new
+      @elements << o
+      o
+    when ChoiceName
+      o = Choice.new
+      @elements << o
+      o
+    when GroupName
+      o = Group.new
+      @elements << o
+      o
+    when AnyName
+      @any = Any.new
+      @elements << @any
+      @any
+    else
+      super(element)
+    end
+  end
 end
 
 

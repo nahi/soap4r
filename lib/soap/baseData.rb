@@ -429,6 +429,10 @@ public
   def as_xsd
     @type = XSD::XSDBase64Binary::Type
   end
+
+  def self.to_data(str)
+    new.set_encoded(str).string
+  end
 end
 
 class SOAPAnyURI < XSD::XSDAnyURI

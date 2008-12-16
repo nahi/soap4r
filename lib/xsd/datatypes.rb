@@ -925,6 +925,7 @@ class XSDBase64Binary < XSDAnySimpleType
     end
     @data = String.new(value).strip
     @is_nil = false
+    self
   end
 
   def string

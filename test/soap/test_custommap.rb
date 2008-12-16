@@ -54,7 +54,7 @@ class TestMap < Test::Unit::TestCase
   end
 
   def setup
-    @server = MapServer.new(self.class.name, nil, '0.0.0.0', Port)
+    @server = MapServer.new(self.class.name, nil, 'localhost', Port)
     @server.level = Logger::Severity::ERROR
     @t = Thread.new {
       @server.start

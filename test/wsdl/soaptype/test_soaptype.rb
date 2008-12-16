@@ -50,7 +50,7 @@ class TestSOAPTYPE < Test::Unit::TestCase
   end
 
   def setup_server
-    @server = Server.new('Test', "urn:soaptype", '0.0.0.0', Port)
+    @server = Server.new('Test', "urn:soaptype", 'localhost', Port)
     @server.level = Logger::Severity::ERROR
     @server_thread = TestUtil.start_server_thread(@server)
   end
@@ -80,8 +80,8 @@ class TestSOAPTYPE < Test::Unit::TestCase
   end
 
 SOAPTYPE_WSDL_XML = %q[<?xml version="1.0" encoding="utf-8" ?>
-<env:Envelope xmlns:xsd="http://www.w3.org/2001/XMLSchema"
-    xmlns:env="http://schemas.xmlsoap.org/soap/envelope/"
+<env:Envelope xmlns:env="http://schemas.xmlsoap.org/soap/envelope/"
+    xmlns:xsd="http://www.w3.org/2001/XMLSchema"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
   <env:Body>
     <n1:echo_soaptype xmlns:n1="urn:soaptype"
@@ -97,8 +97,8 @@ SOAPTYPE_WSDL_XML = %q[<?xml version="1.0" encoding="utf-8" ?>
 </env:Envelope>]
 
 SOAPTYPE_NATIVE_XML = %q[<?xml version="1.0" encoding="utf-8" ?>
-<env:Envelope xmlns:xsd="http://www.w3.org/2001/XMLSchema"
-    xmlns:env="http://schemas.xmlsoap.org/soap/envelope/"
+<env:Envelope xmlns:env="http://schemas.xmlsoap.org/soap/envelope/"
+    xmlns:xsd="http://www.w3.org/2001/XMLSchema"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
   <env:Body>
     <n1:echo_soaptype xmlns:n1="urn:soaptype"

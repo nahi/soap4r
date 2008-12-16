@@ -179,7 +179,7 @@ public
       return 
     end
     ary = []
-    attrs.each do |key, value|
+    attrs_to_a(attrs).each do |key, value|
       ary << %Q[#{ key }="#{ get_encoded(value.to_s) }"]
     end
     case ary.size
@@ -292,6 +292,17 @@ private
     else
       %Q[<?xml version="1.0" ?>]
     end
+  end
+
+  def attrs_to_a(attrs)
+    ary = []
+    attrs.sort { |a, b|
+      attrs_sort_by(a[0]) <=> attrs_sort_by(b[0])
+    }
+  end
+
+  def attrs_sort_by(key)
+    key[0, 3] == 'xml' ? key : 'z' + key
   end
 end
 

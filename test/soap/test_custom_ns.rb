@@ -8,8 +8,8 @@ module SOAP
 class TestCustomNs < Test::Unit::TestCase
   NORMAL_XML = <<__XML__.chomp
 <?xml version="1.0" encoding="utf-8" ?>
-<env:Envelope xmlns:xsd="http://www.w3.org/2001/XMLSchema"
-    xmlns:env="http://schemas.xmlsoap.org/soap/envelope/"
+<env:Envelope xmlns:env="http://schemas.xmlsoap.org/soap/envelope/"
+    xmlns:xsd="http://www.w3.org/2001/XMLSchema"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
   <env:Header>
       <n1:headeritem xmlns:n1="my:foo">hi</n1:headeritem>
@@ -24,9 +24,9 @@ __XML__
 
   CUSTOM_NS_XML = <<__XML__.chomp
 <?xml version="1.0" encoding="utf-8" ?>
-<ENV:Envelope xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+<ENV:Envelope xmlns:ENV="http://schemas.xmlsoap.org/soap/envelope/"
     xmlns:myns="my:foo"
-    xmlns:ENV="http://schemas.xmlsoap.org/soap/envelope/"
+    xmlns:xsd="http://www.w3.org/2001/XMLSchema"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
   <ENV:Header>
       <myns:headeritem>hi</myns:headeritem>
@@ -40,18 +40,18 @@ __XML__
 
   XML_WITH_DEFAULT_NS = <<__XML__.chomp
 <?xml version="1.0" encoding="utf-8" ?>
-<env:Envelope xmlns:xsd="http://www.w3.org/2001/XMLSchema"
-    xmlns:env="http://schemas.xmlsoap.org/soap/envelope/"
+<env:Envelope xmlns:env="http://schemas.xmlsoap.org/soap/envelope/"
+    xmlns:xsd="http://www.w3.org/2001/XMLSchema"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
   <env:Header>
       <headeritem xmlns="my:foo">hi</headeritem>
   </env:Header>
   <env:Body>
-    <test xmlns:n1="my:bar"
+    <test xmlns="my:foo"
+        xmlns:n1="my:bar"
         xmlns:n2="my:foo"
         n1:baz="qux"
-        n2:quxx="quxxx"
-        xmlns="my:foo">bi</test>
+        n2:quxx="quxxx">bi</test>
   </env:Body>
 </env:Envelope>
 __XML__

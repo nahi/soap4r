@@ -149,3 +149,10 @@ unless Kernel.respond_to?(:warn)
     end
   end
 end
+
+
+unless {}.respond_to?(:key)
+  class Hash
+    alias key index
+  end
+end

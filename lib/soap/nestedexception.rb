@@ -20,6 +20,7 @@ module NestedException
   end
 
   def set_backtrace(backtrace)
+    @cause ||= nil
     if @cause and @cause.respond_to?(:backtrace)
       @original_backtrace = backtrace
 =begin

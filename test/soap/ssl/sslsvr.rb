@@ -20,7 +20,7 @@ end
 
 
 if $0 == __FILE__
-  PORT = 17171
+  PORT = 47171
   DIR = File.dirname(File.expand_path(__FILE__))
 
   def cert(filename)
@@ -36,7 +36,7 @@ if $0 == __FILE__
   end
 
   $server = HelloWorldServer.new(
-    :BindAddress => "0.0.0.0",
+    :BindAddress => "localhost",
     :Port => PORT,
     :AccessLog => [],
     :SSLEnable => true,
@@ -47,6 +47,9 @@ if $0 == __FILE__
     :SSLClientCA => cert('ca.cert'),
     :SSLCertName => nil
   )
+  trap(:INT) do
+    $server.shutdown
+  end
   t = Thread.new {
     Thread.current.abort_on_exception = true
     $server.start

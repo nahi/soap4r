@@ -11,7 +11,7 @@ module SOAP; module SSL
 
 
 class TestSSL < Test::Unit::TestCase
-  PORT = 17171
+  PORT = 47171
 
   DIR = File.dirname(File.expand_path(__FILE__))
   require 'rbconfig'
@@ -213,8 +213,8 @@ private
 
   def teardown_server
     if @serverpid
-      Process.kill('KILL', @serverpid)
-      Process.waitpid(@serverpid)
+      Process.kill('INT', @serverpid)
+      Process.waitpid(@serverpid) rescue nil
     end
   end
 

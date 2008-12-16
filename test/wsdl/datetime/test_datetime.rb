@@ -1,6 +1,7 @@
 require 'test/unit'
 require 'soap/wsdlDriver'
-require 'DatetimeService.rb'
+require File.join(File.dirname(File.expand_path(__FILE__)), '..', '..', 'testutil.rb')
+TestUtil.require(File.dirname(__FILE__), 'DatetimeService.rb')
 
 
 module WSDL
@@ -18,7 +19,7 @@ class TestDatetime < Test::Unit::TestCase
   end
 
   def setup_server
-    @server = DatetimePortTypeApp.new('Datetime server', nil, '0.0.0.0', Port)
+    @server = DatetimePortTypeApp.new('Datetime server', nil, 'localhost', Port)
     @server.level = Logger::Severity::ERROR
     @t = Thread.new {
       Thread.current.abort_on_exception = true

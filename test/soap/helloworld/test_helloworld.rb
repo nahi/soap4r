@@ -1,6 +1,7 @@
 require 'test/unit'
 require 'soap/rpc/driver'
-require 'hw_s.rb'
+require File.join(File.dirname(File.expand_path(__FILE__)), '..', '..', 'testutil.rb')
+TestUtil.require(File.dirname(__FILE__), 'hw_s.rb')
 
 
 module SOAP
@@ -11,7 +12,7 @@ class TestHelloWorld < Test::Unit::TestCase
   Port = 17171
 
   def setup
-    @server = HelloWorldServer.new('hws', 'urn:hws', '0.0.0.0', Port)
+    @server = HelloWorldServer.new('hws', 'urn:hws', 'localhost', Port)
     @server.level = Logger::Severity::ERROR
     @t = Thread.new {
       Thread.current.abort_on_exception = true

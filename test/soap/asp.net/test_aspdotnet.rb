@@ -41,7 +41,7 @@ class TestASPDotNet < Test::Unit::TestCase
   end
 
   def setup_server
-    @server = Server.new('Test', Server::Namespace, '0.0.0.0', Port)
+    @server = Server.new('Test', Server::Namespace, 'localhost', Port)
     @server.level = Logger::Severity::ERROR
     @server_thread = TestUtil.start_server_thread(@server)
   end
@@ -92,8 +92,8 @@ __XML__
     # qualified!
     REQUEST_ASPDOTNETHANDLER =
 %q[<?xml version="1.0" encoding="utf-8" ?>
-<env:Envelope xmlns:xsd="http://www.w3.org/2001/XMLSchema"
-    xmlns:env="http://schemas.xmlsoap.org/soap/envelope/"
+<env:Envelope xmlns:env="http://schemas.xmlsoap.org/soap/envelope/"
+    xmlns:xsd="http://www.w3.org/2001/XMLSchema"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
   <env:Body>
     <n1:sayHello xmlns:n1="http://localhost/WebService/">

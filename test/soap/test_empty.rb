@@ -36,7 +36,7 @@ class TestEmpty < Test::Unit::TestCase
   end
 
   def setup
-    @server = NopServer.new(self.class.name, nil, '0.0.0.0', Port)
+    @server = NopServer.new(self.class.name, nil, 'localhost', Port)
     @server.level = Logger::Severity::ERROR
     @t = Thread.new {
       @server.start
@@ -57,15 +57,15 @@ class TestEmpty < Test::Unit::TestCase
   end
 
   EMPTY_XML = %q[<?xml version="1.0" encoding="utf-8" ?>
-<env:Envelope xmlns:xsd="http://www.w3.org/2001/XMLSchema"
-    xmlns:env="http://schemas.xmlsoap.org/soap/envelope/"
+<env:Envelope xmlns:env="http://schemas.xmlsoap.org/soap/envelope/"
+    xmlns:xsd="http://www.w3.org/2001/XMLSchema"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
   <env:Body></env:Body>
 </env:Envelope>]
 
   EMPTY_HEADER_XML = %q[<?xml version="1.0" encoding="utf-8" ?>
-<env:Envelope xmlns:xsd="http://www.w3.org/2001/XMLSchema"
-    xmlns:env="http://schemas.xmlsoap.org/soap/envelope/"
+<env:Envelope xmlns:env="http://schemas.xmlsoap.org/soap/envelope/"
+    xmlns:xsd="http://www.w3.org/2001/XMLSchema"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
   <env:Header></env:Header>
   <env:Body></env:Body>

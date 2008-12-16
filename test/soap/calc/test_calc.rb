@@ -1,6 +1,7 @@
 require 'test/unit'
 require 'soap/rpc/driver'
-require 'server.rb'
+require File.join(File.dirname(File.expand_path(__FILE__)), '..', '..', 'testutil.rb')
+TestUtil.require(File.dirname(__FILE__), 'server.rb')
 
 
 module SOAP
@@ -11,7 +12,7 @@ class TestCalc < Test::Unit::TestCase
   Port = 17171
 
   def setup
-    @server = CalcServer.new(self.class.name, nil, '0.0.0.0', Port)
+    @server = CalcServer.new(self.class.name, nil, 'localhost', Port)
     @server.level = Logger::Severity::ERROR
     @t = Thread.new {
       @server.start

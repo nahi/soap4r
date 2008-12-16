@@ -35,7 +35,7 @@ class TestRAA < Test::Unit::TestCase
 
   def setup_server
     require pathname('RAAService.rb')
-    @server = RAABaseServicePortTypeApp.new('RAA server', nil, '0.0.0.0', Port)
+    @server = RAABaseServicePortTypeApp.new('RAA server', nil, 'localhost', Port)
     @server.level = Logger::Severity::ERROR
     @t = Thread.new {
       Thread.current.abort_on_exception = true
@@ -54,7 +54,6 @@ class TestRAA < Test::Unit::TestCase
 
   def teardown
     teardown_server if @server
-    teardown_client if @client
     unless $DEBUG
       File.unlink(pathname('RAA.rb'))
       File.unlink(pathname('RAAMappingRegistry.rb'))

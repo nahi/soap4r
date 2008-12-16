@@ -1,6 +1,7 @@
 require 'test/unit'
 require 'soap/rpc/driver'
-require 'server2.rb'
+require File.join(File.dirname(File.expand_path(__FILE__)), '..', '..', 'testutil.rb')
+TestUtil.require(File.dirname(__FILE__), 'server2.rb')
 
 
 module SOAP
@@ -11,7 +12,7 @@ class TestCalc2 < Test::Unit::TestCase
   Port = 17171
 
   def setup
-    @server = CalcServer2.new('CalcServer', 'http://tempuri.org/calcService', '0.0.0.0', Port)
+    @server = CalcServer2.new('CalcServer', 'http://tempuri.org/calcService', 'localhost', Port)
     @server.level = Logger::Severity::ERROR
     @t = Thread.new {
       Thread.current.abort_on_exception = true

@@ -23,7 +23,7 @@ class TestCalcCGI < Test::Unit::TestCase
     logger = Logger.new(STDERR)
     logger.level = Logger::Severity::ERROR
     @server = WEBrick::HTTPServer.new(
-      :BindAddress => "0.0.0.0",
+      :BindAddress => "localhost",
       :Logger => logger,
       :Port => Port,
       :AccessLog => [],

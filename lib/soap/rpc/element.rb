@@ -223,7 +223,7 @@ private
       if nsdef && namedef
         type_qname = XSD::QName.new(nsdef, namedef)
       elsif mapped_class
-        type_qname = TypeMap.index(mapped_class)
+        type_qname = TypeMap.key(mapped_class)
       end
       case io_type
       when IN

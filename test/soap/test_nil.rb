@@ -22,7 +22,7 @@ class TestNil < Test::Unit::TestCase
   end
 
   def setup
-    @server = NilServer.new(self.class.name, nil, '0.0.0.0', Port)
+    @server = NilServer.new(self.class.name, nil, 'localhost', Port)
     @server.level = Logger::Severity::ERROR
     @t = Thread.new {
       @server.start
@@ -45,7 +45,7 @@ class TestNil < Test::Unit::TestCase
   # emulates SOAP::Lite's nil request
   def test_soaplite_nil
     body = SOAP::SOAPBody.new(REXML::Document.new(<<-__XML__))
-      <nop xsi:nil="true"/>
+      <nop xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:nil="true"/>
     __XML__
     @client.wiredump_dev = STDOUT if $DEBUG
     header, body = @client.invoke(nil, body)

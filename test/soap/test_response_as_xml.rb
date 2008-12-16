@@ -30,7 +30,7 @@ class TestResponseAsXml < Test::Unit::TestCase
   def setup_server
     @server = Server.new(
       :Port => Port,
-      :BindAddress => "0.0.0.0",
+      :BindAddress => "localhost",
       :AccessLog => [],
       :SOAPDefaultNamespace => Namespace
     )
@@ -62,8 +62,8 @@ class TestResponseAsXml < Test::Unit::TestCase
 
   RESPONSE_AS_XML=<<__XML__.chomp
 <?xml version="1.0" encoding="utf-8" ?>
-<env:Envelope xmlns:xsd="http://www.w3.org/2001/XMLSchema"
-    xmlns:env="http://schemas.xmlsoap.org/soap/envelope/"
+<env:Envelope xmlns:env="http://schemas.xmlsoap.org/soap/envelope/"
+    xmlns:xsd="http://www.w3.org/2001/XMLSchema"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
   <env:Body>
     <n1:helloResponse xmlns:n1="urn:example.com:hello"

@@ -33,13 +33,13 @@ class TestMapping < Test::Unit::TestCase
   def test_mapping
     dump = <<__XML__.chomp
 <?xml version="1.0" encoding="utf-8" ?>
-<env:Envelope xmlns:xsd="http://www.w3.org/2001/XMLSchema"
-    xmlns:env="http://schemas.xmlsoap.org/soap/envelope/"
+<env:Envelope xmlns:env="http://schemas.xmlsoap.org/soap/envelope/"
+    xmlns:xsd="http://www.w3.org/2001/XMLSchema"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
   <env:Body>
     <SOAP..Case..TTMHeader xmlns:n1="urn:TruckMateTypes"
-        xsi:type="n1:TTMHeader"
-        env:encodingStyle="http://schemas.xmlsoap.org/soap/encoding/">
+        env:encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"
+        xsi:type="n1:TTMHeader">
       <DSN xsi:type="xsd:string">dsn</DSN>
       <Password xsi:type="xsd:string">password</Password>
       <Schema xsi:type="xsd:string">schema</Schema>

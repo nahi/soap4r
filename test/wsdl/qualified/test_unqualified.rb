@@ -49,7 +49,7 @@ class TestUnqualified < Test::Unit::TestCase
   end
 
   def setup_server
-    @server = Server.new('Test', "urn:lp", '0.0.0.0', Port)
+    @server = Server.new('Test', "urn:lp", 'localhost', Port)
     @server.level = Logger::Severity::ERROR
     @server_thread = TestUtil.start_server_thread(@server)
   end
@@ -87,8 +87,8 @@ class TestUnqualified < Test::Unit::TestCase
 
   LOGIN_REQUEST_QUALIFIED_UNTYPED =
 %q[<?xml version="1.0" encoding="utf-8" ?>
-<env:Envelope xmlns:xsd="http://www.w3.org/2001/XMLSchema"
-    xmlns:env="http://schemas.xmlsoap.org/soap/envelope/"
+<env:Envelope xmlns:env="http://schemas.xmlsoap.org/soap/envelope/"
+    xmlns:xsd="http://www.w3.org/2001/XMLSchema"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
   <env:Body>
     <n1:login xmlns:n1="urn:lp">

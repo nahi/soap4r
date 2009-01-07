@@ -412,6 +412,10 @@ class SOAPHexBinary < XSD::XSDHexBinary
   include SOAPBasetype
   extend SOAPModuleUtils
   SOAPENCType = QName.new(EncodingNamespace, HexBinaryLiteral)
+
+  def self.to_data(str)
+    new.set_encoded(str).string
+  end
 end
 
 class SOAPBase64 < XSD::XSDBase64Binary

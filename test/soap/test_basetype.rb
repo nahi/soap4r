@@ -839,6 +839,11 @@ class TestSOAP < Test::Unit::TestCase
     end
   end
 
+  def test_SOAPHexBinary_to_data
+    data = '0d0a'
+    assert_equal("\r\n", SOAP::SOAPHexBinary.to_data(data))
+  end
+
   def test_SOAPBase64Binary
     o = SOAP::SOAPBase64.new
     assert_equal(SOAP::EncodingNamespace, o.type.namespace)
@@ -871,6 +876,11 @@ class TestSOAP < Test::Unit::TestCase
 	p o.string
       end
     end
+  end
+
+  def test_SOAPBase64Binary_to_data
+    data = ["\0\0"].pack("m*")
+    assert_equal("\0\0", SOAP::SOAPBase64.to_data(data))
   end
 
   def test_SOAPAnyURI

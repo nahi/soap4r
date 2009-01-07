@@ -31,8 +31,8 @@ class ServantSkeltonCreator
     result = ""
     if @modulepath
       result << "\n"
-      result << @modulepath.collect { |ele| "module #{ele}" }.join("; ")
-      result << "\n\n"
+      result << "module #{@modulepath}\n"
+      result << "\n"
     end
     if porttype.nil?
       @definitions.porttypes.each do |porttype|
@@ -44,8 +44,7 @@ class ServantSkeltonCreator
     end
     if @modulepath
       result << "\n\n"
-      result << @modulepath.collect { |ele| "end" }.join("; ")
-      result << "\n"
+      result << "end\n"
     end
     result
   end

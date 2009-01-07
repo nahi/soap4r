@@ -2,7 +2,7 @@ require 'test/unit'
 require 'soap/mapping'
 require 'soap/processor'
 require 'soap/rpc/element'
-require File.join(File.dirname(File.expand_path(__FILE__)), '..', '..', 'testutil.rb')
+require File.expand_path('../../testutil.rb', File.dirname(__FILE__))
 
 
 module SOAP

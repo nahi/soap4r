@@ -3,7 +3,7 @@ require 'wsdl/parser'
 require 'wsdl/soap/wsdl2ruby'
 require 'soap/rpc/standaloneServer'
 require 'soap/wsdlDriver'
-require File.join(File.dirname(File.expand_path(__FILE__)), '..', '..', 'testutil.rb')
+require File.expand_path('../../testutil.rb', File.dirname(__FILE__))
 
 
 module WSDL; module Any
@@ -86,7 +86,7 @@ class TestAny < Test::Unit::TestCase
   end
 
   def setup_server
-    @server = Server.new('Test', Namespace, '0.0.0.0', Port)
+    @server = Server.new('Test', Namespace, 'localhost', Port)
     @server.level = Logger::Severity::ERROR
     @server_thread = TestUtil.start_server_thread(@server)
   end

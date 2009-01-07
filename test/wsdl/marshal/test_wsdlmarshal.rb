@@ -3,7 +3,7 @@ require 'wsdl/parser'
 require 'soap/mapping/wsdlencodedregistry'
 require 'soap/marshal'
 require 'wsdl/soap/wsdl2ruby'
-require File.join(File.dirname(File.expand_path(__FILE__)), '..', '..', 'testutil.rb')
+require File.expand_path('../../testutil.rb', File.dirname(__FILE__))
 
 
 class WSDLMarshaller
@@ -16,6 +16,7 @@ class WSDLMarshaller
       :pretty => true
     }
     @mapping_registry = ::SOAP::Mapping::WSDLEncodedRegistry.new(types)
+    TestUtil.require(File.dirname(__FILE__), 'person_org')
   end
 
   def dump(obj, io = nil)
@@ -30,19 +31,16 @@ class WSDLMarshaller
   end
 end
 
-
-require File.join(File.dirname(__FILE__), 'person_org')
-
-class Person
-  def ==(rhs)
-    @familyname == rhs.familyname and @givenname == rhs.givenname and
-      @var1 == rhs.var1 and @var2 == rhs.var2 and @var3 == rhs.var3
-  end
-end
-
-
 class TestWSDLMarshal < Test::Unit::TestCase
   DIR = File.dirname(File.expand_path(__FILE__))
+
+  def assert_person_equal(lhs, rhs)
+    lhs.familyname == rhs.familyname and
+      lhs.givenname == rhs.givenname and
+      lhs.var1 == rhs.var1 and
+      lhs.var2 == rhs.var2 and
+      lhs.var3 == rhs.var3
+  end
 
   def test_marshal
     marshaller = WSDLMarshaller.new(pathname('person.wsdl'))
@@ -50,7 +48,7 @@ class TestWSDLMarshal < Test::Unit::TestCase
     str = marshaller.dump(obj)
     puts str if $DEBUG
     obj2 = marshaller.load(str)
-    assert_equal(obj, obj2)
+    assert_person_equal(obj, obj2)
     assert_equal(str, marshaller.dump(obj2))
   end
 

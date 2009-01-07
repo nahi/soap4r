@@ -70,8 +70,10 @@ class Property
   LINE_REGEXP = Regexp.new("^#{DEF_REGSRC}$", nil, 'u')
   def load(stream)
     key_prefix = ""
-    stream.each_with_index do |line, lineno|
+    lineno = 0
+    stream.each_line do |line|
       line.sub!(/\r?\n\z/u, '')
+      lineno += 1
       case line
       when COMMENT_REGEXP
 	next
@@ -84,7 +86,7 @@ class Property
 	self[key] = value
       else
 	raise TypeError.new(
-	  "property format error at line #{lineno + 1}: `#{line}'")
+	  "property format error at line #{lineno}: `#{line}'")
       end
     end
     self

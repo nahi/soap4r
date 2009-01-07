@@ -85,9 +85,17 @@ module_function
       end
       case key
       when 'client_cert'
-        cfg.client_cert = cert_from_file(value)
+        if value.is_a?(OpenSSL::X509::Certificate)
+          cfg.client_cert = value
+        else
+          cfg.client_cert = cert_from_file(value)
+        end
       when 'client_key'
-        cfg.client_key = key_from_file(value)
+        if value.is_a?(OpenSSL::PKey::PKey)
+          cfg.client_key = value
+        else
+          cfg.client_key = key_from_file(value)
+        end
       when 'client_ca'
         cfg.client_ca = value
       when 'ca_path'

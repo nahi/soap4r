@@ -187,7 +187,7 @@ private
         return false
       end
     end
-    unless child.respond_to?(:each)
+    unless child.is_a?(::Array)
       return false
     end
     child.each do |item|

@@ -1,6 +1,6 @@
 require 'test/unit'
 require 'soap/wsdlDriver'
-require File.join(File.dirname(File.expand_path(__FILE__)), '..', '..', 'testutil.rb')
+require File.expand_path('../../testutil.rb', File.dirname(__FILE__))
 TestUtil.require(File.dirname(__FILE__), 'DatetimeService.rb')
 
 

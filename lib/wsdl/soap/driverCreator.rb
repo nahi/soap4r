@@ -33,9 +33,7 @@ class DriverCreator
   def dump(porttype = nil)
     result = "require 'soap/rpc/driver'\n\n"
     if @modulepath
-      @modulepath.each do |name|
-        result << "module #{name}\n"
-      end
+      result << "module #{@modulepath}\n"
       result << "\n"
     end
     if porttype.nil?
@@ -48,9 +46,7 @@ class DriverCreator
     end
     if @modulepath
       result << "\n"
-      @modulepath.each do |name|
-        result << "end\n"
-      end
+      result << "end\n"
     end
     result
   end

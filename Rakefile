@@ -33,3 +33,8 @@ Rake::RDocTask.new("doc") do |rdoc|
   rdoc.rdoc_dir = 'doc'
   rdoc.rdoc_files.include('lib/**/*.rb')
 end
+
+task 'tags' do
+  chdir 'lib'
+  sh 'rtags --vi `find . -name "*.rb" | grep -v compat.rb`'
+end

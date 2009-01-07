@@ -1,7 +1,7 @@
 require 'test/unit'
 require 'soap/rpc/httpserver'
 require 'soap/rpc/driver'
-require File.join(File.dirname(File.expand_path(__FILE__)), '..', '..', 'testutil.rb')
+require File.expand_path('../../testutil.rb', File.dirname(__FILE__))
 
 
 module SOAP; module Struct
@@ -31,7 +31,7 @@ class TestStruct < Test::Unit::TestCase
   def setup_server
     @server = Server.new(
       :Port => Port,
-      :BindAddress => "0.0.0.0",
+      :BindAddress => "localhost",
       :AccessLog => [],
       :SOAPDefaultNamespace => Namespace
     )

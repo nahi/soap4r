@@ -2,7 +2,7 @@ require 'test/unit'
 require 'wsdl/soap/wsdl2ruby'
 require 'soap/rpc/standaloneServer'
 require 'soap/wsdlDriver'
-require File.join(File.dirname(File.expand_path(__FILE__)), '..', '..', 'testutil.rb')
+require File.expand_path('../../testutil.rb', File.dirname(__FILE__))
 
 
 if defined?(HTTPClient)
@@ -68,7 +68,7 @@ class TestQualified < Test::Unit::TestCase
       gen.opt['driver'] = nil
       gen.opt['force'] = true
       gen.run
-      require 'default.rb'
+      TestUtil.require(DIR, 'default.rb')
     ensure
       $".delete('default.rb')
       Dir.chdir(backupdir)

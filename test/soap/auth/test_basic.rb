@@ -3,7 +3,7 @@ require 'soap/rpc/driver'
 require 'webrick'
 require 'webrick/httpproxy'
 require 'logger'
-require File.join(File.dirname(File.expand_path(__FILE__)), '..', '..', 'testutil.rb')
+require File.expand_path('../../testutil.rb', File.dirname(__FILE__))
 
 
 module SOAP; module Auth
@@ -32,7 +32,7 @@ class TestBasic < Test::Unit::TestCase
 
   def setup_server
     @server = WEBrick::HTTPServer.new(
-      :BindAddress => "0.0.0.0",
+      :BindAddress => "localhost",
       :Logger => @logger,
       :Port => Port,
       :AccessLog => [],
@@ -54,7 +54,7 @@ class TestBasic < Test::Unit::TestCase
 
   def setup_proxyserver
     @proxyserver = WEBrick::HTTPProxyServer.new(
-      :BindAddress => "0.0.0.0",
+      :BindAddress => "localhost",
       :Logger => @logger,
       :Port => ProxyPort,
       :AccessLog => []

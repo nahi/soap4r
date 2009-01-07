@@ -1,7 +1,7 @@
 require 'test/unit'
 require 'wsdl/soap/wsdl2ruby'
 require 'soap/wsdlDriver'
-require File.join(File.dirname(File.expand_path(__FILE__)), '..', '..', 'testutil.rb')
+require File.expand_path('../../testutil.rb', File.dirname(__FILE__))
 
 
 module WSDL; module Fault
@@ -40,7 +40,7 @@ class TestFault < Test::Unit::TestCase
         return AddResponse.new(@sum)
       end
     end
-    @server = AddPortTypeApp.new('app', nil, '0.0.0.0', Port)
+    @server = AddPortTypeApp.new('app', nil, 'localhost', Port)
     @server.level = Logger::Severity::ERROR
     @server_thread = TestUtil.start_server_thread(@server)
   end

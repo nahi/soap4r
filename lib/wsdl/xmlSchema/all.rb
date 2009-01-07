@@ -14,9 +14,6 @@ module XMLSchema
 
 
 class All < Content
-  def initialize
-    super()
-  end
   attr_reader :any
 
   def initialize

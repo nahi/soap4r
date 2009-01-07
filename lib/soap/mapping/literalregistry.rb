@@ -172,7 +172,7 @@ private
         SOAPElement.from_objs(any).each do |child|
           ele.add(child)
         end
-      elsif obj.respond_to?(:each) and definition.as_array?
+      elsif obj.is_a?(::Array) and definition.as_array?
         obj.each do |item|
           ele.add(definedobj2soap(item, definition))
         end
@@ -181,7 +181,7 @@ private
         if child.nil? and (is_choice or definition.minoccurs == 0)
           added = false
         else
-          if child.respond_to?(:each) and definition.as_array?
+          if child.is_a?(::Array) and definition.as_array?
             if child.empty?
               added = false
             else

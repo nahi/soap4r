@@ -1,7 +1,7 @@
 require 'test/unit'
 require 'soap/rpc/standaloneServer'
 require 'soap/rpc/driver'
-require File.join(File.dirname(File.expand_path(__FILE__)), '..', '..', 'testutil.rb')
+require File.expand_path('../../testutil', File.dirname(__FILE__))
 
 
 module SOAP; module ASPDotNet

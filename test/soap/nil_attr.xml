@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<SOAP-ENV:Envelope
+  xmlns:SOAP-ENV="http://schemas.xmlsoap.org/soap/envelope/"
+  xmlns:ns1="http://api-secure.sponsoredlistings.ask.com/api/v3"
+  xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xmlns:SOAP-ENC="http://schemas.xmlsoap.org/soap/encoding/"
+  SOAP-ENV:encodingStyle="http://schemas.xmlsoap.org/soap/encoding/">
+  <SOAP-ENV:Body>
+    <ns1:UpdateAdKeywordState>
+      <token xsi:type="xsd:string">eef4ab456a9631957f272a7aaca20444</token>
+      <ad_keyword xsi:type="SOAP-ENC:Struct">
+        <ad_id xsi:type="xsd:int">603504189</ad_id>
+        <match_type_id xsi:type="xsd:int">2</match_type_id>
+        <ad_keyword_state xsi:type="xsd:string">off</ad_keyword_state>
+        <keyword xsi:type="xsd:string">[Contextual]</keyword>
+        <max_cpc xsi:nil="xsd:double">+0.01</max_cpc>
+        <ad_keyword_id xsi:type="xsd:int">262439024</ad_keyword_id>
+      </ad_keyword>
+    </ns1:UpdateAdKeywordState>
+  </SOAP-ENV:Body>
+</SOAP-ENV:Envelope>

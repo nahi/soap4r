@@ -14,6 +14,10 @@ require 'soap/soap'
 module SOAP
 
 
+# not used, just for backward compatibility (see #451)
+SOAPNamespaceTag = 'env'
+
+
 class NS < XSD::NS
   KNOWN_TAG = XSD::NS::KNOWN_TAG.dup.update(
     SOAP::EnvelopeNamespace => 'env'

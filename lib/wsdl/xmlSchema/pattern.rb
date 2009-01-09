@@ -25,7 +25,11 @@ class Pattern < Info
   def parse_attr(attr, value)
     case attr
     when ValueAttrName
-      parent.pattern = /\A#{value.source}\z/n
+      begin
+        parent.pattern = /\A#{value.source}\z/n
+      rescue RegexpError
+        warn("cannot parse as a Ruby's Regexp source (ignored): #{value.source}")
+      end
       value.source
     end
   end

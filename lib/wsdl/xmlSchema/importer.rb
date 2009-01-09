@@ -53,7 +53,7 @@ private
     warn("importing: #{location}") if $DEBUG
     content = nil
     normalizedlocation = location
-    if location.scheme == 'file' or
+    if location.scheme.nil? or location.scheme == 'file' or
         (location.relative? and FileTest.exist?(location.path))
       content = File.open(location.path).read
       normalizedlocation = URI.parse('file://' + File.expand_path(location.path))

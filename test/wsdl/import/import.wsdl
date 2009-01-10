@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<definitions
+    name="import"
+    targetNamespace="urn:import"
+    xmlns:tns="urn:import"
+    xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+    xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
+    xmlns="http://schemas.xmlsoap.org/wsdl/">
+  <types>
+    <schema xmlns="http://www.w3.org/2001/XMLSchema">
+      <import namespace="urn:lp" schemaLocation="import.xsd"/>
+    </schema>
+  </types>
+
+  <message name="a" />
+
+  <portType name="import_porttype">
+    <operation name="a">
+      <input message="tns:a" />
+    </operation>
+  </portType>
+
+  <binding name="import_binding" type="tns:import_porttype">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" style="document" />
+    <operation name="a">
+      <soap:operation soapAction="urn:import:a" style="document" />
+      <input>
+        <soap:body use="literal" />
+      </input>
+    </operation>
+  </binding>
+
+  <service name="import_service">
+    <port name="import_service_port" binding="tns:import_binding">
+      <soap:address location="http://localhost:17171/" />
+    </port>
+  </service>
+</definitions>

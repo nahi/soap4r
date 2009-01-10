@@ -53,12 +53,13 @@ private
     warn("importing: #{location}") if $DEBUG
     content = nil
     normalizedlocation = location
-    if location.scheme.nil? or location.scheme == 'file' or
-        (location.relative? and FileTest.exist?(location.path))
+    if location.scheme.nil?
       content = File.open(location.path).read
       normalizedlocation = URI.parse('file://' + File.expand_path(location.path))
-    elsif location.scheme and location.scheme.size == 1 and
-        FileTest.exist?(location.to_s)
+    elsif location.scheme == 'file'
+      path = URI.unescape(location.path)
+      content = File.open(path).read
+    elsif location.scheme.size == 1 and FileTest.exist?(location.to_s)
       # ToDo: remove this ugly workaround for a path with drive letter
       # (D://foo/bar)
       content = File.open(location.to_s).read

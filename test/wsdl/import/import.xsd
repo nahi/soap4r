@@ -1,0 +1,3 @@
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:tns="urn:import" targetNamespace="urn:import" elementFormDefault="unqualified">
+  <xs:element name="dummy" type="xs:string"/>
+</xs:schema>

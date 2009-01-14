@@ -17,11 +17,12 @@ class TestWSDL2Ruby < Test::Unit::TestCase
       gen.basedir = DIR
       gen.logger.level = Logger::FATAL
       gen.opt['classdef'] = nil
+      gen.opt['mapping_registry'] = nil
       gen.opt['client_skelton'] = nil
       gen.opt['servant_skelton'] = nil
       gen.opt['cgi_stub'] = nil
+      gen.opt['servlet_stub'] = nil
       gen.opt['standalone_server_stub'] = nil
-      gen.opt['mapping_registry'] = nil
       gen.opt['driver'] = nil
       gen.opt['force'] = true
       TestUtil.silent do
@@ -42,6 +43,7 @@ class TestWSDL2Ruby < Test::Unit::TestCase
     compare("expectedMappingRegistry.rb", "echo_versionMappingRegistry.rb")
     compare("expectedDriver.rb", "echo_versionDriver.rb")
     compare("expectedClient.rb", "echo_version_serviceClient.rb")
+    compare("expectedServlet.rb", "echo_version_serviceServlet.rb")
 
     File.unlink(pathname("echo_versionServant.rb"))
     File.unlink(pathname("echo_version.rb"))
@@ -50,6 +52,7 @@ class TestWSDL2Ruby < Test::Unit::TestCase
     File.unlink(pathname("echo_versionMappingRegistry.rb"))
     File.unlink(pathname("echo_versionDriver.rb"))
     File.unlink(pathname("echo_version_serviceClient.rb"))
+    File.unlink(pathname("echo_version_serviceServlet.rb"))
   end
 
   EXPECTED_CLASSDEF = <<__RB__

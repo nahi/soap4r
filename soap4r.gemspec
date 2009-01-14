@@ -11,7 +11,8 @@ SPEC = Gem::Specification.new do |s|
   s.homepage = "http://dev.ctor.org/soap4r"
   s.platform = Gem::Platform::RUBY
   s.summary = "An implementation of SOAP 1.1 for Ruby."
-  s.files = Dir.glob("{bin,lib,test}/**/*")
+  s.files = ['COPYING', 'GPL', 'RELEASE_en.html', 'RUBYS'] +
+    Dir.glob("{bin,lib,sample,test}/**/*")
   s.require_path = "lib"
   s.executables = [ "wsdl2ruby.rb", "xsd2ruby.rb" ]
   # don't reference the test until we see it execute fully and successfully

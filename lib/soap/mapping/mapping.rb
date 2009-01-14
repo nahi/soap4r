@@ -128,8 +128,8 @@ module Mapping
       SOAPRawData.new(obj)
     elsif defined?(::REXML) and obj.is_a?(::REXML::Element)
       SOAPRawData.new(SOAPREXMLElementWrap.new(obj))
-    elsif referent = Thread.current[:SOAPMapping][:MarshalKey][obj.__id__] and
-        !Thread.current[:SOAPMapping][:NoReference]
+    elsif referent = mapping_threadvar[:MarshalKey][obj.__id__] and
+        !mapping_threadvar[:NoReference]
       SOAPReference.new(referent)
     elsif registry
       registry.obj2soap(obj, type)
@@ -144,8 +144,8 @@ module Mapping
     elsif node.is_a?(SOAPReference)
       target = node.__getobj__
       # target.id is not Object#id but SOAPReference#id
-      if referent = Thread.current[:SOAPMapping][:MarshalKey][target.id] and
-          !Thread.current[:SOAPMapping][:NoReference]
+      if referent = mapping_threadvar[:MarshalKey][target.id] and
+          !mapping_threadvar[:NoReference]
         return referent
       else
         return _soap2obj(target, registry, klass)
@@ -256,9 +256,8 @@ module Mapping
   end
 
   def self.const_from_name_nonlenient(name)
-    if Thread.current[:SOAPMapping]
-      Thread.current[:SOAPMapping][:ConstFromName][name] ||=
-        const_from_name(name)
+    if mapping_threadvar
+      mapping_threadvar[:ConstFromName][name] ||= const_from_name(name)
     else
       const_from_name(name)
     end
@@ -297,7 +296,7 @@ module Mapping
     if obj.is_a?(XSD::QName)
       obj
     else
-      XSD::QName.new(ns, obj)
+      XSD::QName.new(ns, obj.to_s)
     end
   end
 
@@ -392,30 +391,30 @@ module Mapping
   end
 
   def self.safeconstname(name)
-    Thread.current[:SOAPMapping][:SafeConstName][name] ||=
+    mapping_threadvar[:SafeConstName][name] ||=
       XSD::CodeGen::GenSupport.safeconstname(name)
   end
 
   def self.safemethodname(name)
-    Thread.current[:SOAPMapping][:SafeMethodName][name] ||=
+    mapping_threadvar[:SafeMethodName][name] ||=
       XSD::CodeGen::GenSupport.safemethodname(name)
   end
 
   def self.safevarname(name)
-    Thread.current[:SOAPMapping][:SafeVarName][name] ||=
+    mapping_threadvar[:SafeVarName][name] ||=
       XSD::CodeGen::GenSupport.safevarname(name)
   end
 
   def self.root_type_hint
-    Thread.current[:SOAPMapping][:RootTypeHint]
+    mapping_threadvar[:RootTypeHint]
   end
 
   def self.reset_root_type_hint
-    Thread.current[:SOAPMapping][:RootTypeHint] = false
+    mapping_threadvar[:RootTypeHint] = false
   end
 
   def self.external_ces
-    Thread.current[:SOAPMapping][:ExternalCES]
+    mapping_threadvar[:ExternalCES]
   end
 
   def self.schema_ns_definition(klass)
@@ -443,8 +442,8 @@ module Mapping
   end
 
   def self.schema_definition_classdef(klass)
-    if Thread.current[:SOAPMapping][:SchemaDefinition].key?(klass)
-      return Thread.current[:SOAPMapping][:SchemaDefinition][klass]
+    if mapping_threadvar[:SchemaDefinition].key?(klass)
+      return mapping_threadvar[:SchemaDefinition][klass]
     end
     schema_ns = schema_ns_definition(klass)
     schema_name = schema_name_definition(klass)
@@ -463,7 +462,7 @@ module Mapping
       :schema_element => elements,
       :schema_attribute => attributes
     )
-    Thread.current[:SOAPMapping][:SchemaDefinition][klass] = definition
+    mapping_threadvar[:SchemaDefinition][klass] = definition
     definition
   end
 
@@ -574,14 +573,7 @@ module Mapping
       end
     end
 
-  private
-
-    def class_schema_variable(sym, klass)
-      var = "@@#{sym}"
-      klass.class_variables.include?(var) ? klass.class_eval(var) : nil
-    end
-
-    def protect_mapping(opt)
+    def protect_mapping(opt = EMPTY_OPT)
       protect_threadvars(:SOAPMapping) do
         data = Thread.current[:SOAPMapping] = {}
         data[:MarshalKey] = {}
@@ -595,6 +587,17 @@ module Mapping
         data[:ConstFromName] = {}
         yield
       end
+    end
+
+  private
+
+    def class_schema_variable(sym, klass)
+      var = "@@#{sym}"
+      klass.class_variables.include?(var) ? klass.class_eval(var) : nil
+    end
+
+    def mapping_threadvar
+      Thread.current[:SOAPMapping]
     end
 
     def add_md_ary(md_ary, ary, indices, registry)

@@ -97,7 +97,9 @@ class Object
   end
 
   def marshal_load(dumpobj)
-    __import(dumpobj)
+    Mapping.protect_mapping do
+      __import(dumpobj)
+    end
   end
 
 private

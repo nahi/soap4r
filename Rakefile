@@ -38,3 +38,8 @@ task 'tags' do
   chdir 'lib'
   sh 'rtags --vi `find . -name "*.rb" | grep -v compat.rb`'
 end
+
+task 'install' do
+  require 'install'
+  Installer.new.execute
+end

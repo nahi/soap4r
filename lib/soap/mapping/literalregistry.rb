@@ -79,8 +79,11 @@ private
       return mappingobj2soap(obj, qname)
     end
     class_definition = schema_definition_from_class(obj.class)
-    if class_definition.nil? and obj_class
-      class_definition = schema_definition_from_class(obj_class)
+    if obj_class
+      class_definition ||= schema_definition_from_class(obj_class)
+      if class_definition.nil?
+        return anyobj2soap(obj, qname)
+      end
     end
     elename_definition = schema_definition_from_elename(qname)
     if !class_definition and !elename_definition

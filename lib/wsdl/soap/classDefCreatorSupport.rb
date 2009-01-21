@@ -104,12 +104,9 @@ __EOD__
     if element.type == XSD::AnyTypeName
       # nil means anyType.
       nil
-    elsif simpletype = @simpletypes[element.type]
-      if simpletype.restriction and simpletype.restriction.enumeration?
-        mapped_class_name(element.type, modulepath)
-      else
-        nil
-      end
+    elsif simpletype = @simpletypes[element.type] and
+        simpletype.restriction and simpletype.restriction.enumeration?
+      mapped_class_name(element.type, modulepath)
     elsif klass = element_basetype(element)
       klass.name
     elsif element.type

@@ -12,9 +12,9 @@ module WSDL; module RPC
 class TestRPC < Test::Unit::TestCase
   class Server < ::SOAP::RPC::StandaloneServer
     def on_init
-      add_rpc_method(self, 'echo', 'arg1', 'arg2')
-      add_rpc_method(self, 'echo_basetype', 'arg1', 'arg2')
-      add_rpc_method(self, 'echo_err', 'arg1', 'arg2')
+      add_rpc_method(self, 'echo', 'arg1', 'ARG2')
+      add_rpc_method(self, 'echo_basetype', 'arg1', 'ARG2')
+      add_rpc_method(self, 'echo_err', 'arg1', 'ARG2')
       self.mapping_registry = Prefix::EchoMappingRegistry::EncodedRegistry
     end
   
@@ -131,6 +131,16 @@ class TestRPC < Test::Unit::TestCase
 
     ret = @client.echo_err(Prefix::Person.new("Na", "Hi", nil, Prefix::Gender::F), Prefix::Person.new("Hi", "Na", nil, Prefix::Gender::M))
     assert_equal("58", ret.given_name)
+  end
+
+  def test_wsdl_basetype
+    wsdl = File.join(DIR, 'rpc.wsdl')
+    @client = ::SOAP::WSDLDriverFactory.new(wsdl).create_rpc_driver
+    @client.endpoint_url = "http://localhost:#{Port}/"
+    @client.wiredump_dev = STDERR if $DEBUG
+
+    ret = @client.echo_basetype(Time.now, 12345)
+    assert_equal(Date, ret.class)
   end
 
   def test_stub

@@ -42,7 +42,7 @@
   </types>
 
   <message name="echo_in">
-    <part name="parameters" element="tns:echoele" />
+    <part name="PARAMETERS" element="tns:echoele" />
   </message>
   <message name="echo_out">
     <part name="parameters" element="tns:echo_response" />

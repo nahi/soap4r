@@ -19,6 +19,16 @@ module EchoMappingRegistry
     ]
   )
 
+  EncodedRegistry.register(
+    :class => WSDL::Any::Type478,
+    :schema_type => XSD::QName.new(NsEchoType, "type478"),
+    :schema_basetype => XSD::QName.new(NsXMLSchema, "anyType"),
+    :schema_element => [],
+    :schema_attribute => {
+      XSD::QName.new(nil, "dialect") => "SOAP::SOAPAnyURI"
+    }
+  )
+
   LiteralRegistry.register(
     :class => WSDL::Any::FooBar,
     :schema_type => XSD::QName.new(NsEchoType, "foo.bar"),
@@ -27,6 +37,16 @@ module EchoMappingRegistry
       ["any", [nil, XSD::QName.new(NsXMLSchema, "anyType")]],
       ["after", ["SOAP::SOAPString", XSD::QName.new(nil, "after")]]
     ]
+  )
+
+  LiteralRegistry.register(
+    :class => WSDL::Any::Type478,
+    :schema_type => XSD::QName.new(NsEchoType, "type478"),
+    :schema_basetype => XSD::QName.new(NsXMLSchema, "anyType"),
+    :schema_element => [],
+    :schema_attribute => {
+      XSD::QName.new(nil, "dialect") => "SOAP::SOAPAnyURI"
+    }
   )
 
   LiteralRegistry.register(

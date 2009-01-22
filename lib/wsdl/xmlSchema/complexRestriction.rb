@@ -95,7 +95,11 @@ class ComplexRestriction < Info
 private
 
   def basetype
-    @basetype ||= root.collect_complextypes[@base]
+    @basetype ||= (@base == XSD::AnyTypeName) ? ComplexType::AnyType : root.collect_complextypes[@base]
+    unless @basetype
+      raise RuntimeError.new("base type definition not found: #{@base}")
+    end
+    @basetype
   end
 end
 

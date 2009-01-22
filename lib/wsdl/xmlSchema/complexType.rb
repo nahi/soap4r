@@ -186,6 +186,8 @@ class ComplexType < Info
       nil
     end
   end
+
+  AnyType = ComplexType.new.freeze
 end
 
 

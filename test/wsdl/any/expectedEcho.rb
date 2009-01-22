@@ -22,6 +22,28 @@ class FooBar
   end
 end
 
+# {urn:example.com:echo-type}type478
+#   xmlattr_dialect - SOAP::SOAPAnyURI
+class Type478
+  AttrDialect = XSD::QName.new(nil, "dialect")
+
+  def __xmlattr
+    @__xmlattr ||= {}
+  end
+
+  def xmlattr_dialect
+    __xmlattr[AttrDialect]
+  end
+
+  def xmlattr_dialect=(value)
+    __xmlattr[AttrDialect] = value
+  end
+
+  def initialize
+    @__xmlattr = {}
+  end
+end
+
 # {urn:example.com:echo-type}setOutputAndCompleteRequest
 #   taskId - SOAP::SOAPString
 #   data - WSDL::Any::SetOutputAndCompleteRequest::C_Data

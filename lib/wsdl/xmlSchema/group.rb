@@ -43,6 +43,31 @@ class Group < Info
   attr_reader_ref :name
   attr_reader_ref :content
 
+  def have_any?
+    c = self.content
+    c && c.have_any?
+  end
+
+  def choice?
+    c = self.content
+    c && c.choice?
+  end
+
+  def elements
+    c = self.content
+    c ? c.elements : XSD::NamedElements::Empty
+  end
+
+  def attributes
+    c = self.content
+    c ? c.attributes : XSD::NamedElements::Empty
+  end
+
+  def nested_elements
+    c = self.content
+    c ? c.nested_elements : XSD::NamedElements::Empty
+  end
+
   attr_accessor :ref
 
   def initialize(name = nil)

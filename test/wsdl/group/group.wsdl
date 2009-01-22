@@ -49,7 +49,12 @@
           <xsd:attributeGroup ref="txd:common_attr"/>
         </xsd:complexType>
 
+        <xsd:complexType name="group_type">
+          <xsd:group ref="txd:common"/>
+        </xsd:complexType>
+
         <xsd:element name="groupele" type="txd:groupele_type"/>
+        <xsd:element name="group" type="txd:group_type"/>
       </xsd:schema>
     </types>
 
@@ -57,7 +62,7 @@
     <part name="parameters" element="txd:groupele" />
   </message>
   <message name="echo_out">
-    <part name="parameters" element="txd:groupele" />
+    <part name="parameters" element="txd:group" />
   </message>
 
   <portType name="group_porttype">

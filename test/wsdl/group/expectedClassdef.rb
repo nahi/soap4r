@@ -54,5 +54,21 @@ class Groupele_type
   end
 end
 
+# {urn:grouptype}group_type
+#   comment - SOAP::SOAPString
+class Group_type
+  attr_accessor :comment
+  attr_reader :__xmlele_any
+
+  def set_any(elements)
+    @__xmlele_any = elements
+  end
+
+  def initialize(comment = nil)
+    @comment = comment
+    @__xmlele_any = nil
+  end
+end
+
 
 end; end

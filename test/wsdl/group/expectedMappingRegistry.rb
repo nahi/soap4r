@@ -27,6 +27,15 @@ module EchoMappingRegistry
     }
   )
 
+  EncodedRegistry.register(
+    :class => WSDL::Group::Group_type,
+    :schema_type => XSD::QName.new(NsGrouptype, "group_type"),
+    :schema_element => [
+      ["comment", "SOAP::SOAPString", [0, 1]],
+      ["any", [nil, XSD::QName.new(NsXMLSchema, "anyType")]]
+    ]
+  )
+
   LiteralRegistry.register(
     :class => WSDL::Group::Groupele_type,
     :schema_type => XSD::QName.new(NsGrouptype, "groupele_type"),
@@ -46,6 +55,15 @@ module EchoMappingRegistry
   )
 
   LiteralRegistry.register(
+    :class => WSDL::Group::Group_type,
+    :schema_type => XSD::QName.new(NsGrouptype, "group_type"),
+    :schema_element => [
+      ["comment", "SOAP::SOAPString", [0, 1]],
+      ["any", [nil, XSD::QName.new(NsXMLSchema, "anyType")]]
+    ]
+  )
+
+  LiteralRegistry.register(
     :class => WSDL::Group::Groupele_type,
     :schema_name => XSD::QName.new(NsGrouptype, "groupele"),
     :schema_element => [
@@ -61,6 +79,15 @@ module EchoMappingRegistry
       XSD::QName.new(nil, "attr_min") => "SOAP::SOAPDecimal",
       XSD::QName.new(nil, "attr_max") => "SOAP::SOAPDecimal"
     }
+  )
+
+  LiteralRegistry.register(
+    :class => WSDL::Group::Group_type,
+    :schema_name => XSD::QName.new(NsGrouptype, "group"),
+    :schema_element => [
+      ["comment", "SOAP::SOAPString", [0, 1]],
+      ["any", [nil, XSD::QName.new(NsXMLSchema, "anyType")]]
+    ]
   )
 end
 

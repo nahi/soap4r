@@ -152,7 +152,7 @@ private
         ele_added = true
       when WSDL::XMLSchema::Element
         ele_added = complexobj2soapchildren(obj, soap, child_ele, nillable)
-      when WSDL::XMLSchema::Sequence
+      when WSDL::XMLSchema::Sequence, WSDL::XMLSchema::Group
         ele_added = complexobj2sequencesoap(obj, soap, child_ele, nillable, false)
       when WSDL::XMLSchema::Choice
         ele_added = complexobj2sequencesoap(obj, soap, child_ele, true, true)

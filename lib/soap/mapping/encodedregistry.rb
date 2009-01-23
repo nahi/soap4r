@@ -504,7 +504,7 @@ private
     vars = {}
     node.each do |name, value|
       item = definition.elements.find_element(value.elename)
-      if item
+      if item and item.mapped_class
         child = soap2typedobj(value, item.mapped_class)
       else
         # unknown element is treated as anyType.

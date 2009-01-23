@@ -76,7 +76,7 @@ class NetHttpClient
     raise NotImplementedError.new
   end
 
-  def save_cookie_store(filename)
+  def save_cookie_store
     raise NotImplementedError.new
   end
 

@@ -67,11 +67,18 @@ private
       client = web_client.new(nil, "WSDL4R")
       client.proxy = ::SOAP::Env::HTTP_PROXY
       client.no_proxy = ::SOAP::Env::NO_PROXY
+      cookie_store = nil
       if opt = ::SOAP::Property.loadproperty(::SOAP::PropertyName)
         http_opt = opt["client.protocol.http"]
-        ::SOAP::HTTPConfigLoader.set_options(client, http_opt) if http_opt
+        if http_opt
+          ::SOAP::HTTPConfigLoader.set_options(client, http_opt)
+          cookie_store = http_opt["cookie_store_file"]
+          cookie_store = nil if cookie_store and cookie_store.empty?
+          client.set_cookie_store(cookie_store)
+        end
       end
       content = client.get_content(location)
+      client.save_cookie_store if cookie_store
     end
     return content, normalizedlocation
   end

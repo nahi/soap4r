@@ -26,10 +26,18 @@
 
       <xsd:element name="myid" type="tns:ID"/>
 
+      <xsd:element name="myid2" type="tns:ID2"/>
+
       <xsd:simpleType name="ID">
         <xsd:restriction base="xsd:string">
           <xsd:length value="18"/>
           <xsd:pattern value='[a-zA-Z0-9]{18}'/>
+        </xsd:restriction>
+      </xsd:simpleType>
+
+      <xsd:simpleType name="ID2">
+        <xsd:restriction base="xsd:string">
+          <xsd:pattern value="([\i-[:]][\c-[:]]*:)?(//)?([\i-[:]][\c-[:]]*|\*)((/|//)(([\i-[:]][\c-[:]]*:)?[\i-[:]][\c-[:]]*|\*|[.]))*(\|([\i-[:]][\c-[:]]*:)?(//)?([\i-[:]][\c-[:]]*|\*)((/|//)(([\i-[:]][\c-[:]]*:)?[\i-[:]][\c-[:]]*|\*|[.]))*)*"/>
         </xsd:restriction>
       </xsd:simpleType>
 
@@ -67,7 +75,7 @@
   </message>
 
   <message name="ping_id_out">
-    <part name="parameters" element="tns:myid"/>
+    <part name="parameters" element="tns:myid2"/>
   </message>
 
   <message name="versionmsg">

@@ -217,9 +217,7 @@ class SOAPExternalReference < XSD::NSDBase
 
 private
 
-  def external_contentid
-    raise NotImplementedError.new
-  end
+  # method 'external_contentid' must be implemented.
 end
 
 
@@ -631,8 +629,8 @@ public
   end
 
   def replace
-    members.each do |member|
-      self[member] = yield(self[member])
+    0.upto(@array.size - 1) do |idx|
+      @data[idx] = yield(@data[idx])
     end
   end
 

@@ -54,8 +54,11 @@ class Attachment
 
   def content
     if @content == nil and @string_or_readable != nil
-      @content = @string_or_readable.respond_to?(:read) ?
-	@string_or_readable.read : @string_or_readable
+      if @string_or_readable.respond_to?(:read)
+        @content = @string_or_readable.read
+      else
+        @content = @string_or_readable
+      end
     end
     @content
   end
@@ -77,10 +80,6 @@ class Attachment
   def self.contentid(obj)
     # this needs to be fixed
     [obj.__id__.to_s, Process.pid.to_s].join('.')
-  end
-
-  def self.mime_contentid(obj)
-    '<' + contentid(obj) + '>'
   end
 end
 

@@ -5,7 +5,9 @@ require 'soap/baseData'
 module SOAP
 
 
-class TestSOAP < Test::Unit::TestCase
+class TestBaseType < Test::Unit::TestCase
+  include SOAP
+
   NegativeZero = (-1.0 / (1.0 / 0.0))
 
   def setup
@@ -883,6 +885,13 @@ class TestSOAP < Test::Unit::TestCase
     assert_equal("\0\0", SOAP::SOAPBase64.to_data(data))
   end
 
+  def test_SOAPBase64Binary_as_xsd
+    o = SOAP::SOAPBase64.new("\0\0")
+    assert_equal(SOAP::SOAPBase64::Type, o.type)
+    o.as_xsd
+    assert_equal(XSD::XSDBase64Binary::Type, o.type)
+  end
+
   def test_SOAPAnyURI
     o = SOAP::SOAPAnyURI.new
     assert_equal(XSD::Namespace, o.type.namespace)
@@ -1093,6 +1102,47 @@ class TestSOAP < Test::Unit::TestCase
 	SOAP::SOAPInt.new(d)
       end
     end
+  end
+
+  def test_SOAPStruct
+    o = SOAPStruct.new(XSD::QName.new('urn:foo', 'struct'))
+    o.add('key1', SOAPString.new('value1'))
+    o.add('key2', SOAPString.new('value2'))
+    assert_equal('value1', o['key1'].data)
+    assert_equal('value2', o['key2'].data)
+    # allowed to add the same key
+    o.add('key1', SOAPString.new('value3'))
+    # first win
+    assert_equal('value1', o['key1'].data)
+    assert_equal('value3', o[2].data)
+    # override
+    o['key1'] = SOAPString.new('value4')
+    # first lose
+    assert_equal('value4', o['key1'].data)
+    assert_equal('value3', o[2].data)
+    # out of bounds
+    assert_raises(ArrayIndexOutOfBoundsError) do
+      p o[4]
+    end
+    # to_obj works as to_hash
+    assert_equal({
+      'key1' => ['value4', 'value3'],
+      'key2' => 'value2'
+    }, o.to_obj)
+    # replace
+    o.replace do |value|
+      SOAPString.new(value.data + '-')
+    end
+    assert_equal({
+      'key1' => ['value4-', 'value3-'],
+      'key2' => 'value2-'
+    }, o.to_obj)
+  end
+
+  def test_SOAPElement
+    o = SOAPElement.new(XSD::QName.new('url:foo', 'element'))
+    assert_nil(o[3])
+    # TODO
   end
 end
 

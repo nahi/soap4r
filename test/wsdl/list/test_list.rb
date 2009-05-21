@@ -84,12 +84,15 @@ class TestList < Test::Unit::TestCase
     e1 = Langlistinline.new([Langlistinline::Inlineruby,
       Langlistinline::Inlineperl])
     e2 = Langlist.new([Language::Python, Language::Smalltalk])
-    ret = @client.echo(Echoele.new(e1, e2))
+    e = Echoele.new(e1, e2)
+    e.xmlattr_a1 = e2
+    ret = @client.echo(e)
     # in the future...
     #   assert_equal(e1, ret.e1)
     #   assert_equal(e2, ret.e2)
     assert_equal(e1.join(" "), ret.e1)
     assert_equal(e2.join(" "), ret.e2)
+    assert_equal(e2.join(" "), ret.xmlattr_a1)
   end
 
   def test_naive
@@ -98,12 +101,15 @@ class TestList < Test::Unit::TestCase
     e1 = Langlistinline.new([Langlistinline::Inlineruby,
       Langlistinline::Inlineperl])
     e2 = Langlist.new([Language::Python, Language::Smalltalk])
-    ret = @client.echo(Echoele.new(e1, e2))
+    e = Echoele.new(e1, e2)
+    e.xmlattr_a1 = e2
+    ret = @client.echo(e)
     # in the future...
     #   assert_equal(e1, ret.e1)
     #   assert_equal(e2, ret.e2)
     assert_equal(e1.join(" "), ret.e1)
     assert_equal(e2.join(" "), ret.e2)
+    assert_equal(e2.join(" "), ret.xmlattr_a1)
   end
 
   def test_string_as_a_value
@@ -111,12 +117,15 @@ class TestList < Test::Unit::TestCase
     @client.wiredump_dev = STDOUT if $DEBUG
     e1 = ['inlineruby', 'inlineperl']
     e2 = 'python smalltalk'
-    ret = @client.echo(Echoele.new(e1, e2))
+    e = Echoele.new(e1, e2)
+    e.xmlattr_a1 = e2
+    ret = @client.echo(e)
     # in the future...
     #   assert_equal(e1, ret.e1)
     #   assert_equal(e2, ret.e2)
     assert_equal(e1.join(" "), ret.e1)
     assert_equal(e2, ret.e2)
+    assert_equal(e2, ret.xmlattr_a1)
   end
 end
 

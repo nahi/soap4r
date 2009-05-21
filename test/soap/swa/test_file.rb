@@ -2,6 +2,7 @@ require 'test/unit'
 require 'soap/rpc/driver'
 require 'soap/rpc/standaloneServer'
 require 'soap/attachment'
+require File.expand_path('../../testutil.rb', File.dirname(__FILE__))
 
 
 module SOAP
@@ -11,6 +12,7 @@ module SWA
 class TestFile < Test::Unit::TestCase
   Port = 17171
   THIS_FILE = File.expand_path(__FILE__)
+  TMP_FILE = File.expand_path('out.txt', File.dirname(__FILE__))
 
   class SwAService
     def get_file
@@ -21,13 +23,22 @@ class TestFile < Test::Unit::TestCase
     end
   
     def put_file(name, file)
+      io = StringIO.new
+      file.write(io)
+      file.save(TMP_FILE)
+      if io.string != File.read(TMP_FILE)
+        raise
+      end
+      if io.string != file.to_s
+        raise
+      end
       "File '#{name}' was received ok."
     end
   end
 
   def setup
     @server = SOAP::RPC::StandaloneServer.new('SwAServer',
-      'http://www.acmetron.com/soap', '0.0.0.0', Port)
+      'http://www.acmetron.com/soap', 'localhost', Port)
     @server.add_servant(SwAService.new)
     @server.level = Logger::Severity::ERROR
     @t = Thread.new {
@@ -47,6 +58,7 @@ class TestFile < Test::Unit::TestCase
       @t.join
     end
     @client.reset_stream if @client
+    TestUtil.safe_unlink(TMP_FILE)
   end
 
   def test_get_file

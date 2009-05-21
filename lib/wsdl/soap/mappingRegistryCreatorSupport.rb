@@ -204,7 +204,12 @@ module MappingRegistryCreatorSupport
       if klass = attribute_basetype(attribute)
         type = klass.name
       else
-        warn("unresolved attribute type #{attribute.type} for #{name}")
+        simpletype = @simpletypes[attribute.type]
+        if simpletype.list
+          # no warning
+        else
+          warn("unresolved attribute type #{attribute.type} for #{name}")
+        end
         type = nil
       end
       schema_attribute << [name, type]

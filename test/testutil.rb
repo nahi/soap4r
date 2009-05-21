@@ -51,4 +51,10 @@ module TestUtil
     }
     t
   end
+
+  def self.safe_unlink(file)
+    if File.exist?(file)
+      File.unlink(file)
+    end
+  end
 end

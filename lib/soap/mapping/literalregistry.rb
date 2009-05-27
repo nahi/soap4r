@@ -328,11 +328,10 @@ private
     return if obj.nil? or node.extraattr.empty?
     if attributes = definition.attributes
       define_xmlattr(obj)
-      attributes.each do |qname, class_name|
+      attributes.each do |qname, klass|
         child = node.extraattr[qname]
         next if child.nil?
-        if class_name
-          klass = Mapping.class_from_name(class_name)
+        if klass
           if klass.include?(::SOAP::SOAPBasetype)
             child = klass.to_data(child)
           end

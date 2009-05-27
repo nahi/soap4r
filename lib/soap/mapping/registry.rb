@@ -234,28 +234,28 @@ module RegistrySupport
       add_definedattributes2soap(obj, ele, definition)
     elsif obj.respond_to?(:__xmlattr)
       obj.__xmlattr.each do |key, value|
-        if value.is_a?(::Array)
-          value = value.join(" ")
-        end
-        ele.extraattr[key] = value
+        ele.extraattr[key] = attr2soap(value)
       end
     end
   end
 
   def add_definedattributes2soap(obj, ele, typedef)
     if typedef.attributes
-      typedef.attributes.each do |qname, param|
-        if value = xmlattr2soap(obj, qname)
-          ele.extraattr[qname] = value
+      typedef.attributes.each do |qname, klass|
+        if value = get_xmlattr_value(obj, qname)
+          ele.extraattr[qname] = attr2soap(value, klass)
         end
       end
     end
   end
 
-  def xmlattr2soap(obj, qname)
-    if value = get_xmlattr_value(obj, qname)
-      value = value.join(" ") if value.is_a?(::Array)
-      value
+  def attr2soap(obj, klass = nil)
+    if obj.is_a?(::Array)
+      obj.map { |e| attr2soap(e, klass) }.join(' ')
+    elsif klass
+      base2soap(obj, klass)
+    else
+      obj.to_s
     end
   end
 

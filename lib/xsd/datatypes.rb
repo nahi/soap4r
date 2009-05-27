@@ -256,7 +256,7 @@ private
   def screen_data(d)
     if d.is_a?(String)
       # Integer("00012") => 10 in Ruby.
-      d.sub!(/^([+\-]?)0*(?=\d)/, "\\1")
+      d = d.sub(/^([+\-]?)0*(?=\d)/, "\\1")
     end
     screen_data_str(d)
   end

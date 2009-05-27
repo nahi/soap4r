@@ -483,7 +483,7 @@ module Mapping
     schema_attributes = definition[:schema_attribute]
     definition = SchemaDefinition.new(klass, schema_name, schema_type, is_anonymous, schema_qualified)
     definition.basetype = schema_basetype
-    definition.attributes = schema_attributes
+    definition.attributes = parse_schema_attribute_definition(schema_attributes)
     if schema_element
       if schema_element.respond_to?(:is_concrete_definition) and
           schema_element.is_concrete_definition
@@ -554,6 +554,22 @@ module Mapping
       SchemaElementDefinition.new(
         varname, mapped_class, elename, minoccurs, maxoccurs, as_any, as_array)
     end
+  end
+
+  # returns Hash
+  def self.parse_schema_attribute_definition(schema_attribute)
+    return nil unless schema_attribute
+    schema_attribute.inject({}) { |r, e|
+      qname, type = e
+      if type
+        mapped_class = Mapping.class_from_name(type)
+        if mapped_class.nil?
+          warn("cannot find mapped class: #{mapped_class_str}")
+        end
+      end
+      r[qname] = mapped_class
+      r
+    }
   end
 
   class << Mapping

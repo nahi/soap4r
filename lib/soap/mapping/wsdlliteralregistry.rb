@@ -236,8 +236,11 @@ private
   def add_definedattributes2soap(obj, ele, typedef)
     if typedef.attributes
       typedef.attributes.each do |at|
-        if value = xmlattr2soap(obj, at.name)
-          ele.extraattr[at.name] = value
+        if value = get_xmlattr_value(obj, at.name)
+          if at.type
+            klass = TypeMap[at.type]
+          end
+          ele.extraattr[at.name] = attr2soap(value, klass)
         end
       end
     end

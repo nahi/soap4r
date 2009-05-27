@@ -40,7 +40,7 @@ class Import < Info
     case attr
     when NamespaceAttrName
       @namespace = value.source
-      if @content
+      if @content and @content.targetnamespace != @namespace
 	@content.targetnamespace = @namespace
       end
       @namespace

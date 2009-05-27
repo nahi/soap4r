@@ -15,7 +15,7 @@ module XMLSchema
 
 
 class Schema < Info
-  attr_reader :targetnamespace	# required
+  attr_accessor :targetnamespace	# required
   attr_reader :complextypes
   attr_reader :simpletypes
   attr_reader :elements

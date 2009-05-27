@@ -132,11 +132,11 @@ class Rating < ::String
 end
 
 # {urn:ref}Product-Bag
-#   bag - WSDL::Ref::Product
-#   rating - SOAP::SOAPString
-#   comment_1 - WSDL::Ref::ProductBag::Comment_1
-#   comment_2 - WSDL::Ref::Comment
-#   m___point - WSDL::Ref::C__point
+#   bag - WSDL::Ref::Product[]?
+#   rating - SOAP::SOAPString[]?
+#   comment_1 - WSDL::Ref::ProductBag::Comment_1[]?
+#   comment_2 - WSDL::Ref::Comment[]?
+#   m___point - WSDL::Ref::C__point?
 #   xmlattr_version - SOAP::SOAPString
 #   xmlattr_yesno - SOAP::SOAPString
 class ProductBag

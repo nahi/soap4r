@@ -285,7 +285,9 @@ private
     c
   end
 
-  def parse_elements(c, elements, base_namespace, mpath, as_array = false)
+  def parse_elements(c, elements, base_namespace, mpath, opt = {})
+    as_array = opt[:as_array] || false
+    is_choice = opt[:is_choice] || false
     init_lines = []
     init_params = []
     any = false
@@ -296,6 +298,7 @@ private
         raise RuntimeError.new("duplicated 'any'") if any
         any = true
         attrname = '__xmlele_any'
+        next if c.attrnames.include?(attrname)
         c.def_attr(attrname, false, attrname)
         c.def_method('set_any', 'elements') do
           '@__xmlele_any = elements'
@@ -315,6 +318,7 @@ private
         end
         unless as_array
           attrname = safemethodname(name)
+          next if c.attrnames.include?(attrname)
           varname = safevarname(name)
           c.def_attr(attrname, true, varname)
           init_lines << "@#{varname} = #{varname}"
@@ -323,16 +327,29 @@ private
           else
             init_params << "#{varname} = nil"
           end
-          c.comment << "\n  #{attrname} - #{create_type_name(typebase, element) || '(any)'}"
+          type = create_type_name(typebase, element) || '(any)'
+          type += '[]' if element.map_as_array?
+          type += '?' if element.minoccurs == 0
+          if is_choice
+            c.comment << "\n    "
+          else
+            c.comment << "\n  "
+          end
+          c.comment << "#{attrname} - #{type}"
         end
       when WSDL::XMLSchema::Sequence
         child_init_lines, child_init_params =
-          parse_elements(c, element.elements, base_namespace, mpath, as_array)
+          parse_elements(c, element.elements, base_namespace, mpath, opt)
         init_lines.concat(child_init_lines)
         init_params.concat(child_init_params)
       when WSDL::XMLSchema::Choice
+        unless element.map_as_array?
+          # choice + maxOccurs="unbounded" is treated just as 'all' now.
+          opt = opt.merge(:is_choice => true)
+          c.comment << "\n  (choice)"
+        end
         child_init_lines, child_init_params =
-          parse_elements(c, element.elements, base_namespace, mpath, as_array)
+          parse_elements(c, element.elements, base_namespace, mpath, opt)
         init_lines.concat(child_init_lines)
         init_params.concat(child_init_params)
       when WSDL::XMLSchema::Group
@@ -341,7 +358,7 @@ private
           next
         end
         child_init_lines, child_init_params =
-          parse_elements(c, element.content.elements, base_namespace, mpath, as_array)
+          parse_elements(c, element.content.elements, base_namespace, mpath, opt)
         init_lines.concat(child_init_lines)
         init_params.concat(child_init_params)
       else
@@ -385,7 +402,7 @@ private
     c = ClassDef.new(classname, '::Array')
     c.comment = "#{qname}"
     parentmodule = mapped_class_name(qname, mpath)
-    parse_elements(c, typedef.elements, qname.namespace, parentmodule, true)
+    parse_elements(c, typedef.elements, qname.namespace, parentmodule, :as_array => true)
     c
   end
 

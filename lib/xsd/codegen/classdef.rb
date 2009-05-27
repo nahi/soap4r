@@ -37,7 +37,14 @@ class ClassDef < ModuleDef
     unless safevarname?(varname || attrname)
       raise ArgumentError.new("#{varname || attrname} seems to be unsafe")
     end
+    if @attrdef.find { |e| e[0] == attrname }
+      raise ArgumentError.new("duplicated attrname: #{varname || attrname}")
+    end
     @attrdef << [attrname, writable, varname]
+  end
+
+  def attrnames
+    @attrdef.map { |e| e[0] }
   end
 
   def dump

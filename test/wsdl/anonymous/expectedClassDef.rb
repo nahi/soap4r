@@ -104,7 +104,7 @@ class Login
   # {}loginRequest
   #   username - SOAP::SOAPString
   #   password - SOAP::SOAPString
-  #   timezone - SOAP::SOAPString
+  #   timezone - SOAP::SOAPString?
   class LoginRequest
     attr_accessor :username
     attr_accessor :password

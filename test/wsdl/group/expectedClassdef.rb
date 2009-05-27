@@ -4,9 +4,10 @@ module WSDL; module Group
 
 
 # {urn:grouptype}groupele_type
-#   comment - SOAP::SOAPString
-#   element - SOAP::SOAPString
-#   eletype - SOAP::SOAPString
+#   comment - SOAP::SOAPString?
+#   (choice)
+#     element - SOAP::SOAPString
+#     eletype - SOAP::SOAPString
 #   var - SOAP::SOAPString
 #   xmlattr_attr_min - SOAP::SOAPDecimal
 #   xmlattr_attr_max - SOAP::SOAPDecimal
@@ -55,7 +56,7 @@ class Groupele_type
 end
 
 # {urn:grouptype}group_type
-#   comment - SOAP::SOAPString
+#   comment - SOAP::SOAPString?
 class Group_type
   attr_accessor :comment
   attr_reader :__xmlele_any

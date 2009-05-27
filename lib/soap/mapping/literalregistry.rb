@@ -156,20 +156,23 @@ private
   end
 
   def stubobj2soap_elements(obj, ele, definition, is_choice = false)
-    added = false
+    no_more_element = false
     case definition
     when SchemaSequenceDefinition, SchemaEmptyDefinition
       definition.each do |eledef|
-        ele_added = stubobj2soap_elements(obj, ele, eledef, is_choice)
-        added = true if ele_added
+        re = stubobj2soap_elements(obj, ele, eledef, is_choice)
+        no_more_element = true if re
       end
     when SchemaChoiceDefinition
       definition.each do |eledef|
-        added = stubobj2soap_elements(obj, ele, eledef, true)
-        break if added
+        no_more_element = stubobj2soap_elements(obj, ele, eledef, true)
+        break if no_more_element
       end
     else
-      added = true
+      no_more_element = true
+      if is_choice and definition.as_array?
+        no_more_element = false
+      end
       if definition.as_any?
         any = Mapping.get_attributes_for_any(obj)
         SOAPElement.from_objs(any).each do |child|
@@ -182,11 +185,11 @@ private
       else
         child = Mapping.get_attribute(obj, definition.varname)
         if child.nil? and (is_choice or definition.minoccurs == 0)
-          added = false
+          no_more_element = false
         else
           if child.is_a?(::Array) and definition.as_array?
             if child.empty?
-              added = false
+              no_more_element = false
             else
               child.each do |item|
                 ele.add(definedobj2soap(item, definition))
@@ -198,7 +201,7 @@ private
         end
       end
     end
-    added
+    no_more_element
   end
 
   def mappingobj2soap(obj, qname)

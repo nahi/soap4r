@@ -177,7 +177,7 @@ module MappingRegistryCreatorSupport
       when WSDL::XMLSchema::Choice
         child_schema_element =
           parse_elements(element.elements, base_namespace, mpath, opt)
-        if !element.map_as_array?
+        unless element.map_as_array?
           # choice + maxOccurs="unbounded" is treated just as 'all' now.
           child_schema_element.unshift(:choice)
         end

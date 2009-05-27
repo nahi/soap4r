@@ -101,6 +101,15 @@ class TestChoice < Test::Unit::TestCase
     File.join(DIR, filename)
   end
 
+  def compare(expected, actual)
+    TestUtil.filecompare(pathname(expected), pathname(actual))
+  end
+
+  def test_generate
+    compare("expectedClassdef.rb", "choice.rb")
+    compare("expectedMappingRegistry.rb", "choiceMappingRegistry.rb")
+  end
+
   def test_wsdl
     wsdl = File.join(DIR, 'choice.wsdl')
     @client = ::SOAP::WSDLDriverFactory.new(wsdl).create_rpc_driver

@@ -13,6 +13,7 @@ class Category
   def initialize(major = nil, minor = nil)
     @major = major
     @minor = minor
+    yield(self) if block_given?
   end
 end
 
@@ -47,6 +48,7 @@ class Product
     @download = download
     @license = license
     @description = description
+    yield(self) if block_given?
   end
 end
 
@@ -63,6 +65,7 @@ class Owner
     @id = id
     @email = email
     @name = name
+    yield(self) if block_given?
   end
 end
 
@@ -85,6 +88,7 @@ class Info
     @owner = owner
     @created = created
     @updated = updated
+    yield(self) if block_given?
   end
 end
 

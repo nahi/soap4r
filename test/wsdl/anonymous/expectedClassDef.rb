@@ -10,6 +10,7 @@ class Header
 
   def initialize(header3 = nil)
     @header3 = header3
+    yield(self) if block_given?
   end
 end
 
@@ -26,6 +27,7 @@ class ExtraInfo < ::Array
     def initialize(key = nil, value = nil)
       @key = key
       @value = value
+      yield(self) if block_given?
     end
   end
 end
@@ -42,6 +44,7 @@ class LoginResponse
 
     def initialize(sessionID = nil)
       @sessionID = sessionID
+      yield(self) if block_given?
     end
   end
 
@@ -49,6 +52,7 @@ class LoginResponse
 
   def initialize(loginResult = nil)
     @loginResult = loginResult
+    yield(self) if block_given?
   end
 end
 
@@ -64,6 +68,7 @@ class Pack
 
     def initialize(header1 = nil)
       @header1 = header1
+      yield(self) if block_given?
     end
   end
 
@@ -71,6 +76,7 @@ class Pack
 
   def initialize(header = nil)
     @header = header
+    yield(self) if block_given?
   end
 end
 
@@ -86,6 +92,7 @@ class Envelope
 
     def initialize(header2 = nil)
       @header2 = header2
+      yield(self) if block_given?
     end
   end
 
@@ -93,6 +100,7 @@ class Envelope
 
   def initialize(header = nil)
     @header = header
+    yield(self) if block_given?
   end
 end
 
@@ -114,6 +122,7 @@ class Login
       @username = username
       @password = password
       @timezone = timezone
+      yield(self) if block_given?
     end
   end
 
@@ -121,6 +130,7 @@ class Login
 
   def initialize(loginRequest = nil)
     @loginRequest = loginRequest
+    yield(self) if block_given?
   end
 end
 

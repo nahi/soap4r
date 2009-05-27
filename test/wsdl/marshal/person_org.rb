@@ -19,5 +19,6 @@ class Person
     @var1 = var1
     @var2 = var2
     @var3 = var3
+    yield(self) if block_given?
   end
 end

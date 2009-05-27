@@ -230,7 +230,7 @@ private
       init_lines << "@__xmlattr = {}"
     end
     c.def_method('initialize', '*arg') do
-      "super\n" + init_lines.join("\n")
+      "super\n" + init_lines.join("\n") + "\nyield(self) if block_given?"
     end
     c
   end
@@ -280,7 +280,7 @@ private
       init_lines << "@__xmlattr = {}"
     end
     c.def_method('initialize', *init_params) do
-      init_lines.join("\n")
+      init_lines.join("\n") + "\nyield(self) if block_given?"
     end
     c
   end

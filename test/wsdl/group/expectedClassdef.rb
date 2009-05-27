@@ -52,6 +52,7 @@ class Groupele_type
     @eletype = eletype
     @var = var
     @__xmlattr = {}
+    yield(self) if block_given?
   end
 end
 
@@ -68,6 +69,7 @@ class Group_type
   def initialize(comment = nil)
     @comment = comment
     @__xmlele_any = nil
+    yield(self) if block_given?
   end
 end
 

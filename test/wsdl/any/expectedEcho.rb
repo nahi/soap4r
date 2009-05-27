@@ -19,6 +19,7 @@ class FooBar
     @before = before
     @__xmlele_any = nil
     @after = after
+    yield(self) if block_given?
   end
 end
 
@@ -41,6 +42,7 @@ class Type478
 
   def initialize
     @__xmlattr = {}
+    yield(self) if block_given?
   end
 end
 
@@ -61,6 +63,7 @@ class SetOutputAndCompleteRequest
 
     def initialize
       @__xmlele_any = nil
+      yield(self) if block_given?
     end
   end
 
@@ -72,6 +75,7 @@ class SetOutputAndCompleteRequest
     @taskId = taskId
     @data = data
     @participantToken = participantToken
+    yield(self) if block_given?
   end
 end
 

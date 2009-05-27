@@ -33,6 +33,7 @@ class Andor
     @b3b = b3b
     @c1 = c1
     @c2 = c2
+    yield(self) if block_given?
   end
 end
 
@@ -50,6 +51,7 @@ class EmptyArrayAtFirst
     @a = a
     @b1 = b1
     @b2 = b2
+    yield(self) if block_given?
   end
 end
 
@@ -63,6 +65,7 @@ class TerminalID
   def initialize(imei = nil, devId = nil)
     @imei = imei
     @devId = devId
+    yield(self) if block_given?
   end
 end
 
@@ -73,6 +76,7 @@ class Echoele
 
   def initialize(terminalID = nil)
     @terminalID = terminalID
+    yield(self) if block_given?
   end
 end
 
@@ -83,6 +87,7 @@ class Echo_response
 
   def initialize(terminalID = nil)
     @terminalID = terminalID
+    yield(self) if block_given?
   end
 end
 
@@ -93,6 +98,7 @@ class Echoele_complex
 
   def initialize(data = nil)
     @data = data
+    yield(self) if block_given?
   end
 end
 
@@ -103,6 +109,7 @@ class Echo_complex_response
 
   def initialize(data = nil)
     @data = data
+    yield(self) if block_given?
   end
 end
 
@@ -113,6 +120,7 @@ class Echoele_complex_emptyArrayAtFirst
 
   def initialize(data = nil)
     @data = data
+    yield(self) if block_given?
   end
 end
 

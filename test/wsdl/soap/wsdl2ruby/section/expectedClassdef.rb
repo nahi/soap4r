@@ -7,6 +7,7 @@ class Question
 
   def initialize(something = nil)
     @something = something
+    yield(self) if block_given?
   end
 end
 
@@ -29,6 +30,7 @@ class Section
     @description = description
     @index = index
     @firstQuestion = firstQuestion
+    yield(self) if block_given?
   end
 end
 

@@ -71,6 +71,7 @@ class Version_struct
   def initialize(version = nil, msg = nil)
     @version = version
     @msg = msg
+    yield(self) if block_given?
   end
 end
 

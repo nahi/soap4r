@@ -13,6 +13,7 @@ class Product
   def initialize(name = nil, rating = nil)
     @name = name
     @rating = rating
+    yield(self) if block_given?
   end
 end
 
@@ -36,6 +37,7 @@ class Comment < ::String
   def initialize(*arg)
     super
     @__xmlattr = {}
+    yield(self) if block_given?
   end
 end
 
@@ -59,6 +61,7 @@ class C__point < ::String
   def initialize(*arg)
     super
     @__xmlattr = {}
+    yield(self) if block_given?
   end
 end
 
@@ -82,6 +85,7 @@ class Document < ::String
   def initialize(*arg)
     super
     @__xmlattr = {}
+    yield(self) if block_given?
   end
 end
 
@@ -121,6 +125,7 @@ class DerivedChoice_BaseSimpleContent < Document
     @varStringExt = varStringExt
     @varFloatExt = varFloatExt
     @__xmlattr = {}
+    yield(self) if block_given?
   end
 end
 
@@ -164,6 +169,7 @@ class ProductBag
     def initialize(*arg)
       super
       @__xmlattr = {}
+      yield(self) if block_given?
     end
   end
 
@@ -207,6 +213,7 @@ class ProductBag
     @comment_2 = comment_2
     @v___point = v___point
     @__xmlattr = {}
+    yield(self) if block_given?
   end
 end
 
@@ -230,6 +237,7 @@ class Creator < ::String
   def initialize(*arg)
     super
     @__xmlattr = {}
+    yield(self) if block_given?
   end
 end
 

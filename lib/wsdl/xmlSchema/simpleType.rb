@@ -76,9 +76,7 @@ class SimpleType < Info
 private
 
   def check_restriction(value)
-    unless @restriction.valid?(value)
-      raise XSD::ValueSpaceError.new("#{@name}: cannot accept '#{value}'")
-    end
+      @restriction.valid?(value) || raise XSD::ValueSpaceError.new("#{@name}: cannot accept '#{value}'")
   end
 end
 
